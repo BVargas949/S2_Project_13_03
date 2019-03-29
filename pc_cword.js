@@ -70,6 +70,12 @@ function init() {
       //Global  variables were given specific elements to reference.
       acrossClue = document.getElementById("acrossID");
       downClue = document.getElementById("downID");
+
+      puzzformat(currentLetter);
+      for (var i = 0; i < allLetters.length; i++) {
+            allLetters[i].style.cursor = "pointer";
+            document.addEventListener("mousedown", formatPuzzle(e.target.value));
+      }
 }
 
 // This function changes the colors of the crosword tabel cells
@@ -85,12 +91,24 @@ function formatPuzzle(puzzleLetter) {
       //The Gobal variables were removed from color.
       acrossClue.style.color = "";
       downClue.style.color = "";
-      //The if statement is meant to cahnge the datacell to blue or the RGB assigned if the dataset is undefined.
-      if (currentLetter.dataSet.clueA != "undefined") {
+      //The if statement is meant to change the datacell to blue or the RGB assigned if the dataset is undefined.
+      if (currentLetter.dataSet.clueA != undefined) {
             acrossClue = currentLetter.dataSet.clueA;
             acrossClue.style.color = blue;
-            wordLetters = document.querySelectorAll("[data-clue-A] =" + document.querySelectorAll("[data-clue-A]").value);
+            wordLetters = document.querySelectorAll("[data-clue-A] =" + currentLetter.dataSet.clueA);
             wordLetters.style.color = "rgb(231, 231, 255)";
+      }
+      // Changes data cells from the "Clue D" dataset
+      if (currentLetter.dataSet.clueD != undefined) {
+            acrossClue = currentLetter.dataSet.clueD;
+            acrossClue.style.color = red;
+            wordLetters = document.querySelectorAll("[data-clue-D] =" + currentLetter.dataSet.clueA);
+            wordLetters.style.color = "rgb(255, 231, 231)";
+      }
+      if (typeDirection == "right") {
+            currentLetter.style.color = "rgb(191, 191, 255)";
+      } else {
+            currentLetter.style.color = "rgb(255, 191, 191)";
       }
 
 }
